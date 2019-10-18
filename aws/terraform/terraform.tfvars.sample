@@ -6,9 +6,6 @@ name = "ldls_nomad"
 # at provisioning
 key_name = "your_key"
 
-# HashiCorp Account AMI
-ami = "ami-027877f224b392508"
-
 server_count = "1"
 
 client_count = "1"

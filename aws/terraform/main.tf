@@ -15,7 +15,7 @@ data "aws_ami" "latest-windows" {
 }
 resource "aws_instance" "nomad_server" {
   ami             = "${data.aws_ami.latest-windows.id}"
-  instance_type   = "t2.large"
+  instance_type   = "${var.server_type}"
   key_name        = "${var.key_name}"
   get_password_data = true
   vpc_security_group_ids = ["${aws_security_group.primary.id}"]
@@ -30,8 +30,8 @@ resource "aws_instance" "nomad_server" {
 }
 
 resource "aws_instance" "nomad_client" {
-  ami             = "${var.ami}"
-  instance_type   = "t2.large"
+  ami             = "${data.aws_ami.latest-windows.id}"
+  instance_type   = "${var.client_type}"
   key_name        = "${var.key_name}"
   vpc_security_group_ids = ["${aws_security_group.primary.id}"]
   count                  = "${var.client_count}"

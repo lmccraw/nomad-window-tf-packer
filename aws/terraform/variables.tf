@@ -23,6 +23,12 @@ variable "client_count" {
   default = "1"
 }
 
-variable "ami" {}
+variable "server_type" {
+  default = "t2.large"
+}
+
+variable "client_type" {
+  default = "t2.large"
+}
 
 

@@ -1,0 +1,68 @@
+{
+    "variables": {
+        "profile": "default",
+        "region":  "us-east-1"
+    },
+
+    "builders": [{
+        "type": "amazon-ebs",
+        "profile": "{{user `profile`}}",
+        "region": "{{user `region`}}",
+        "source_ami_filter": {
+          "filters": {
+            "virtualization-type": "hvm",
+            "name": "Windows_Server-2016-English-Full-Containers-*",
+            "root-device-type": "ebs"
+          },
+          "owners": ["amazon"],
+          "most_recent": true
+        }, 
+        "instance_type": "t2.large",
+    "ami_name": "windows2016Server-{{timestamp}}",
+    "user_data_file":"../scripts/SetUpWinRM.ps1",
+    "communicator": "winrm",
+    "winrm_username": "Administrator",
+    "winrm_insecure": true,
+    "winrm_use_ssl": true,
+    "tags": {
+        "Name": "nomad-win2016-containers",
+        "OS": "win2016",
+        "Owner": "{{user `owner`}}"
+    },  
+    "launch_block_device_mappings": [{
+      "device_name": "/dev/sda1",
+      "volume_size": 100,
+      "volume_type": "gp2",
+      "delete_on_termination": true
+    }]
+    
+  }],
+    
+  "provisioners": [
+  {
+    "type": "powershell",
+    "elevated_user": "Administrator",
+    "elevated_password": "{{.WinRMPassword}}",
+    "valid_exit_codes": [ 
+      "2147943515",
+      "0"
+    ],
+    "scripts": [
+        "../scripts/win_update.ps1"
+    ]
+  },
+  {
+    "type": "powershell",
+    "scripts": [
+        "../scripts/setup.ps1"
+    ]
+  },
+  {
+    "type": "powershell",
+    "inline": [
+      "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",
+      "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\SysprepInstance.ps1 -NoShutdown"
+    ]
+  }
+]
+}

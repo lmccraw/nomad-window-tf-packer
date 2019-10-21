@@ -1,5 +1,15 @@
 version: 2
 jobs:
+  git-check:
+    docker:
+      - image: hashicorp/packer:1.4.0
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: |
+              ls -lsah .circleci
+              .circleci/kill.sh aws/packer
   validate:
     docker:
       - image: hashicorp/packer:1.4.0

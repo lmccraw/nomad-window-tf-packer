@@ -1,15 +1,5 @@
 version: 2
 jobs:
-  git-check:
-    docker:
-      - image: hashicorp/packer:1.4.0
-    steps:
-      - checkout
-      - run:
-          name: Test
-          command: |
-              ls -lsah .circleci
-              .circleci/kill.sh aws/packer
   validate:
     docker:
       - image: hashicorp/packer:1.4.0
@@ -17,8 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup AWS credentials
-          command: mkdir ~/.aws; echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID_PROD\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY_PROD\n" > ~/.aws/credentials
+          name: git-check
+          command: |
+              .circleci/kill.sh aws/packer
       - run:
           working_directory: ~/packer/aws/packer
           name: Validate base
@@ -30,9 +21,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup AWS credentials
-          command: mkdir ~/.aws; echo -e "[default]\naws_access_key_id=$AWS_ACCESS_KEY_ID_PROD\naws_secret_access_key=$AWS_SECRET_ACCESS_KEY_PROD\n" > ~/.aws/credentials
-      - run:
           working_directory: ~/packer/aws/packer
           no_output_timeout: 45m
           name: Build base
@@ -42,10 +30,7 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - git-check
-      - validate:
-          requires:
-            - git-check
+      - validate
       - build:
           requires:
             - validate

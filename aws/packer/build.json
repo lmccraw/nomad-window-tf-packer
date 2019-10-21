@@ -45,6 +45,7 @@
     "elevated_password": "{{.WinRMPassword}}",
     "valid_exit_codes": [ 
       "2147943515",
+      "259",
       "0"
     ],
     "scripts": [

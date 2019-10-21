@@ -42,7 +42,10 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - validate
+      - git-check
+      - validate:
+          requires:
+            - git-check
       - build:
           requires:
             - validate

@@ -45,8 +45,7 @@ function Check-ContinueRestartOrEnd() {
                 LogWrite "Restart Registry Entry Exists Already"
             }
 
-            LogWrite "Restart Required - Restarting..."
-            Restart-Computer
+            LogWrite "Restart Required"
         }
         default {
             LogWrite "Unsure If A Restart Is Required"
@@ -206,7 +205,6 @@ function Check-WindowsUpdates() {
             $global:MoreUpdates=0
             Check-ContinueRestartOrEnd
             LogWrite "Show never happen to see this text!"
-            Restart-Computer
         }
     } else {
         LogWrite 'There are no applicable updates'

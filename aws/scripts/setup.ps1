@@ -2,8 +2,6 @@
   Write-Host "Installing Docker (this will reboot the node)..." -ForegroundColor Green
   Install-Module -Name DockerMsftProvider -Force
   Install-Package -Name docker -ProviderName DockerMsftProvider -Force
-  Write-Host "Rebooting the node..." -ForegroundColor Yellow
-  Restart-Computer -Force
 }
 function isWindowsServer {
   return ((Get-ItemPropertyValue -Path HKLM:\SYSTEM\CurrentControlSet\Control\ProductOptions -Name ProductType) -eq "ServerNT")

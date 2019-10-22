@@ -46,8 +46,7 @@ function Check-ContinueRestartOrEnd() {
             }
 
             LogWrite "Restart Required - Restarting..."
-            Restart-Computer -Force
-        }
+            Restart-Computer
         default {
             LogWrite "Unsure If A Restart Is Required"
             break
@@ -206,7 +205,7 @@ function Check-WindowsUpdates() {
             $global:MoreUpdates=0
             Check-ContinueRestartOrEnd
             LogWrite "Show never happen to see this text!"
-            Restart-Computer -Force
+            Restart-Computer
         }
     } else {
         LogWrite 'There are no applicable updates'

@@ -59,6 +59,10 @@
     ]
   },
   {
+    "type": "windows-restart",
+    "restart_check_command": "powershell -command \"& {Write-Output 'restarted.'}\""
+  },
+  {
     "type": "powershell",
     "inline": [
       "C:\\ProgramData\\Amazon\\EC2-Windows\\Launch\\Scripts\\InitializeInstance.ps1 -Schedule",

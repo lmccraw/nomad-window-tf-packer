@@ -30,3 +30,5 @@ sc.exe start "Nomad-Server"
 sc.exe create "Nomad-Client" binPath="C:\nomad\nomad.exe agent -config=C:\nomad\client.hcl" start=auto
 
 sc.exe start "Nomad-Client"
+
+New-Alias nomad C:\nomad\nomad.exe

@@ -40,6 +40,7 @@ function Enable-RemoteDesktop {
     Write-Host "Remote Desktop Connections have been enabled." -ForegroundColor Green
 }
 
+Get-WUHistory
 Disable-InternetExplorerESC
 Enable-RemoteDesktop
 Disable-UserAccessControl

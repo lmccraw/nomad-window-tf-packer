@@ -49,7 +49,7 @@
       "0"
     ],
     "scripts": [
-        "../scripts/win_update.ps1"
+        "../scripts/test_updates.ps1"
     ]
   },
   {
@@ -57,10 +57,6 @@
     "scripts": [
         "../scripts/setup.ps1"
     ]
-  },
-  {
-    "type": "windows-restart",
-    "restart_check_command": "powershell -command \"& {Write-Output 'restarted.'}\""
   },
   {
     "type": "powershell",

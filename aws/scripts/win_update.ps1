@@ -46,6 +46,7 @@ function Check-ContinueRestartOrEnd() {
             }
 
             LogWrite "Restart Required"
+            Restart-Computer
         }
         default {
             LogWrite "Unsure If A Restart Is Required"

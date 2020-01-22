@@ -9,7 +9,7 @@ jobs:
       - run:
           name: git-check
           command: |
-              .circleci/kill.sh aws/packer
+              .circleci/kill.sh aws/packer/
       - run:
           working_directory: ~/packer/aws/packer
           name: Validate base
